@@ -1,0 +1,28 @@
+name: bat-ubuntu-portfolio
+base: core22
+version: "0.26.0"
+summary: "A cat(1) clone with wings"
+description: |
+  bat is a cat clone with wings. This snap is a small personal
+  packaging exercise, not an official build. It follows upstream
+  fairly closely but the version may lag behind a bit.
+
+grade: devel
+confinement: strict
+
+apps:
+  bat:
+    command: bin/bat
+    plugs:
+      - home
+      - removable-media
+
+parts:
+  bat:
+    plugin: rust
+    source: https://github.com/sharkdp/bat.git
+    source-tag: v0.26.0
+    build-packages:
+      - pkg-config
+      - libssl-dev
+      - zlib1g-dev

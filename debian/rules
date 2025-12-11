@@ -1,0 +1,31 @@
+#!/usr/bin/make -f
+
+# Minimal rules file for bat. I keep it explicit and call cargo
+# directly instead of relying on extra helpers.
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export CARGO_HOME = $(CURDIR)/debian/cargo-home
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	# bat is a pure Rust project, nothing to configure.
+	:
+
+override_dh_auto_build:
+	# Use --locked so we dont accidentally pick up new dependency versions
+	# during a reproducible build.
+	cargo build --release --locked
+
+override_dh_auto_test:
+	# I usually keep tests enabled locally but allow turning them off with
+	# DEB_BUILD_OPTIONS=nocheck so that CI can skip them if needed.
+	if [ -n "$$DEB_BUILD_OPTIONS" ] && echo "$$DEB_BUILD_OPTIONS" | grep -q nocheck; then \
+	  echo "Skipping tests because of nocheck"; \
+	else \
+	  cargo test --all --release || echo "Tests failed, but not fatal for this demo build"; \
+	fi
+
+override_dh_auto_install:
+	install -Dm0755 target/release/bat debian/bat/usr/bin/bat

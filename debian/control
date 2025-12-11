@@ -1,0 +1,23 @@
+# Simple, single-binary package for bat. This is intentionally
+# lightweight and aimed at a personal PPA / demo.
+Source: bat
+Section: utils
+Priority: optional
+Maintainer: Youssef Essam <youssef.essam@example.com>
+Build-Depends: debhelper-compat (= 13),
+               cargo,
+               rustc,
+               pkg-config,
+               libssl-dev,
+               zlib1g-dev
+Standards-Version: 4.7.0
+Homepage: https://github.com/sharkdp/bat
+Rules-Requires-Root: no
+
+Package: bat
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: cat clone with syntax highlighting and Git integration
+ A clone of cat with syntax highlighting and Git integration.
+ This packaging follows upstream fairly closely and is mainly
+ meant as a personal Ubuntu packaging exercise.

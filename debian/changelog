@@ -1,0 +1,5 @@
+bat (0.26.0-1ubuntu1) noble; urgency=medium
+
+  * Initial packaging for my personal PPA and as part of my Ubuntu packaging portfolio.
+
+ -- Youssef Essam <youssef.essam@example.com>  Wed, 10 Dec 2025 14:30:00 +0200
